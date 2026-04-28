@@ -1,10 +1,16 @@
 import { JSONFilePreset } from 'lowdb/node'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-// Initial database structure
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const dbPath = path.resolve(__dirname, '../../data/db.json')
+
+console.log('DB path:', dbPath)
+
 const defaultData = { users: {} }
 
 export const getDb = async () => {
-  const db = await JSONFilePreset('data/db.json', defaultData)
+  const db = await JSONFilePreset(dbPath, defaultData)
   return db
 }
 
