@@ -1,5 +1,6 @@
 import 'dotenv/config'
 import { Telegraf, Markup, Scenes } from 'telegraf'
+import http from 'http'
 import { getUserState, saveUserState, clearUserState } from './services/db.service.js'
 import { calculateTotals, generateInsights } from './services/report.service.js'
 import { formatCyberMessage, escapeMarkdown, generateAsciiTable } from './utils/formatter.js'
@@ -220,5 +221,16 @@ bot.action('finish_report', async (ctx) => {
 })
 
 bot.launch()
+
+const PORT = process.env.PORT || 3000
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' })
+  res.write('ANDY AD. CORE running...')
+  res.end()
+})
+
+server.listen(PORT, () => {
+  console.log(`Keep-alive server on port ${PORT}`)
+})
 
 console.log('ANDY AD. CORE bot started...')
